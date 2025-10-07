@@ -1,0 +1,8 @@
+modLoader="neoforge"
+loaderVersion="[21,)"
+license="MIT"
+[[mods]]
+modId="pmmoskillcommand"
+version="1.0.0"
+displayName="PMMO Skill Command"
+description="Displays a message when a player levels up a Project MMO skill."
