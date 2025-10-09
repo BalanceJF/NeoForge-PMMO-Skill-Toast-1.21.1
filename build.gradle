@@ -114,6 +114,7 @@ configurations {
 dependencies {
     implementation "net.neoforged:neoforge:21.1.208"
     implementation files('C:\\Users\\drog7\\OneDrive\\Documents\\Mods Research\\pmmo-1.21.1-2.7.34.jar')
+    implementation 'com.google.code.gson:gson:2.10.1'
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.
