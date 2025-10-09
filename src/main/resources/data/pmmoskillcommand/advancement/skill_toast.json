@@ -1,0 +1,16 @@
+{
+  "display": {
+    "icon": { "id": "minecraft:experience_bottle" },
+    "title": "Skill Leveled Up!",
+    "description": "You leveled up a skill!",
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": true
+  },
+  "criteria": {
+    "trigger": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}
