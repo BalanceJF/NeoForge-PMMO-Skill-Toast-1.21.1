@@ -4,15 +4,17 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 
 public class PMMONetworkRegistration {
-    public static void init() {} // called just to force class load
+    // Call this in the mod constructor to force class load
+    public static void ensureLoaded() {}
 
     @SubscribeEvent
-    public static void onRegisterPayloadHandlers(RegisterPayloadHandlersEvent event) {
+    public static void register(RegisterPayloadHandlersEvent event) {
+        System.out.println("RegisterPayloadHandlersEvent called!");
         event.registrar("PLAY").playToClient(
                 SkillLeveledUpPacket.TYPE,
                 SkillLeveledUpPacket.STREAM_CODEC,
-                (payload, context) -> {
-                    context.enqueueWork(() -> {
+                (payload, ctx) -> {
+                    ctx.enqueueWork(() -> {
                         ToastHelper.showSkillToast(payload.skill(), payload.level());
                     });
                 }

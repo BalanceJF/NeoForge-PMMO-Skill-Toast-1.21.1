@@ -5,16 +5,10 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.codec.StreamCodec;
 
-/**
- * Packet sent from the server to the client
- * to signal a PMMO skill level-up (for displaying a toast).
- */
 public record SkillLeveledUpPacket(String skill, int level) implements CustomPacketPayload {
-    // Unique type ID for this packet
     public static final Type<SkillLeveledUpPacket> TYPE =
             new Type<>(ResourceLocation.fromNamespaceAndPath("pmmoskillcommand", "skill_leveled_up"));
 
-    // StreamCodec for serialization/deserialization
     public static final StreamCodec<FriendlyByteBuf, SkillLeveledUpPacket> STREAM_CODEC =
             new StreamCodec<>() {
                 @Override
