@@ -19,21 +19,17 @@ public class LastSkillLevelsSavedData extends SavedData {
     private final Map<String, Map<String, Integer>> playerSkillLevels = new HashMap<>();
 
     public static final SavedData.Factory<LastSkillLevelsSavedData> FACTORY =
-            new SavedData.Factory<LastSkillLevelsSavedData>(
-                    (net.minecraft.nbt.CompoundTag nbtTag, net.minecraft.core.HolderLookup.Provider provider) -> {
+            new SavedData.Factory<>(
+                    LastSkillLevelsSavedData::new,
+                    (CompoundTag nbtTag, HolderLookup.Provider provider) -> {
                         LastSkillLevelsSavedData data = new LastSkillLevelsSavedData();
                         if (nbtTag.contains("playerSkillLevels")) {
-                            java.lang.reflect.Type type = new com.google.gson.reflect.TypeToken<java.util.Map<String, java.util.Map<String, Integer>>>() {}.getType();
-                            java.util.Map<String, java.util.Map<String, Integer>> loaded =
+                            Type type = new TypeToken<Map<String, Map<String, Integer>>>() {}.getType();
+                            Map<String, Map<String, Integer>> loaded =
                                     GSON.fromJson(nbtTag.getString("playerSkillLevels"), type);
                             if (loaded != null) data.playerSkillLevels.putAll(loaded);
                         }
                         return data;
-                    },
-                    (LastSkillLevelsSavedData data, net.minecraft.nbt.CompoundTag nbtTag, net.minecraft.core.HolderLookup.Provider provider) -> {
-                        String json = GSON.toJson(data.playerSkillLevels);
-                        nbtTag.putString("playerSkillLevels", json);
-                        return nbtTag;
                     }
             );
 
