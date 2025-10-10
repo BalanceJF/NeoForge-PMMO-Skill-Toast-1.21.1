@@ -13,23 +13,27 @@ import net.minecraft.world.level.saveddata.SavedData;
 public class LastSkillLevelsSavedData extends SavedData {
     private static final String DATA_NAME = "pmmoskillcommand_last_skill_levels";
     private static final Gson GSON = new Gson();
-    private final Map<String, Map<String, Integer>> playerSkillLevels = new HashMap();
-    public static final SavedData.Factory<LastSkillLevelsSavedData> FACTORY = new SavedData.Factory(LastSkillLevelsSavedData::new, (nbtTag, provider) -> {
-        LastSkillLevelsSavedData data = new LastSkillLevelsSavedData();
-        if (nbtTag.contains("playerSkillLevels")) {
-            Type type = (new TypeToken<Map<String, Map<String, Integer>>>() {
-            }).getType();
-            Map<String, Map<String, Integer>> loaded = (Map)GSON.fromJson(nbtTag.getString("playerSkillLevels"), type);
-            if (loaded != null) {
-                data.playerSkillLevels.putAll(loaded);
-            }
-        }
+    private final Map<String, Map<String, Integer>> playerSkillLevels = new HashMap<>();
 
-        return data;
-    });
+    public static final SavedData.Factory<LastSkillLevelsSavedData> FACTORY = new SavedData.Factory(
+            LastSkillLevelsSavedData::new,
+            (nbtTag, provider) -> {
+                LastSkillLevelsSavedData data = new LastSkillLevelsSavedData();
+                if (nbtTag instanceof CompoundTag compound && compound.contains("playerSkillLevels")) {
+                    Type type = new TypeToken<Map<String, Map<String, Integer>>>(){}.getType();
+                    Map<String, Map<String, Integer>> loaded = GSON.fromJson(compound.getString("playerSkillLevels"), type);
+                    if (loaded != null) {
+                        data.playerSkillLevels.putAll(loaded);
+                    }
+                }
+                return data;
+            }
+    );
 
     public static LastSkillLevelsSavedData get(ServerLevel level) {
-        return (LastSkillLevelsSavedData)level.getDataStorage().computeIfAbsent(FACTORY, "pmmoskillcommand_last_skill_levels");
+        return (LastSkillLevelsSavedData)level.getDataStorage().computeIfAbsent(
+                FACTORY, DATA_NAME
+        );
     }
 
     public Map<String, Map<String, Integer>> getPlayerSkillLevels() {
@@ -37,17 +41,17 @@ public class LastSkillLevelsSavedData extends SavedData {
     }
 
     public void setPlayerSkillLevels(String uuid, Map<String, Integer> levels) {
-        this.playerSkillLevels.put(uuid, new HashMap(levels));
+        this.playerSkillLevels.put(uuid, new HashMap<>(levels));
         this.setDirty();
     }
 
     public Map<String, Integer> getLevelsForPlayer(String uuid) {
-        return (Map)this.playerSkillLevels.get(uuid);
+        return this.playerSkillLevels.get(uuid);
     }
 
+    @Override
     public CompoundTag save(CompoundTag tag, HolderLookup.Provider provider) {
-        String json = GSON.toJson(this.playerSkillLevels);
-        tag.putString("playerSkillLevels", json);
+        tag.putString("playerSkillLevels", GSON.toJson(this.playerSkillLevels));
         return tag;
     }
 }
