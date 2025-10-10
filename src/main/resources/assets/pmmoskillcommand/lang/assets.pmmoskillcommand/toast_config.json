@@ -1,0 +1,8 @@
+{
+  "texture": "pmmoskillcommand:textures/gui/toast.png",
+  "animation": {
+    "frames": 8,
+    "frame_time": 4
+  },
+  "sound": "pmmoskillcommand:toast_level_up"
+}
