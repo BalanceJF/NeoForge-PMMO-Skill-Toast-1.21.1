@@ -1,7 +1,6 @@
 modLoader="javafml"
-loaderVersion="${2,}"
-
-license="${MIT}"
+loaderVersion="[2,)"
+license="MIT"
 
 [[mods]]
 modId="pmmoskillcommand"
@@ -10,23 +9,23 @@ displayName="Project MMO Skill Toast"
 authors="drog701"
 description='''Displays a toast when PMMO skills level up.'''
 
-[[dependencies.pmmoskillcommand]] #optional
-    modId="neoforge" #mandatory
-    type="required" #mandatory
-    versionRange="[${neo_version},)"
-    ordering="NONE"
-    side="BOTH"
+[[dependencies.pmmoskillcommand]]
+modId="neoforge"
+mandatory=true
+versionRange="[21.1,)"
+ordering="NONE"
+side="BOTH"
 
 [[dependencies.pmmoskillcommand]]
-    modId="minecraft"
-    type="required"
-    versionRange="${minecraft_version_range}"
-    ordering="NONE"
-    side="BOTH"
+modId="minecraft"
+mandatory=true
+versionRange="[1.21.1]"
+ordering="NONE"
+side="BOTH"
 
 [[dependencies.pmmoskillcommand]]
 modId="pmmo"
 mandatory=true
-versionRange="[2.7,)"
+versionRange="[2.7.34,)"
 ordering="AFTER"
 side="BOTH"
