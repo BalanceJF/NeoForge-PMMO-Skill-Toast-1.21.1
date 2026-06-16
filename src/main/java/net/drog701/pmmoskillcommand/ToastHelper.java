@@ -3,6 +3,7 @@ package net.drog701.pmmoskillcommand;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.toasts.SystemToast;
 import net.minecraft.client.gui.components.toasts.ToastComponent;
+import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.neoforged.api.distmarker.Dist;
@@ -16,16 +17,7 @@ public class ToastHelper {
         ToastComponent var10000 = Minecraft.getInstance().getToasts();
         SystemToast.SystemToastId var10003 = PMMO_SKILL;
         MutableComponent var10004 = Component.literal("Skill Leveled Up!");
-        String var10005 = capitalize(skill);
+        String var10005 = I18n.get("pmmo." + skill);
         var10000.addToast(new SystemToast(var10003, var10004, Component.literal(var10005 + " " + level)));
-    }
-
-    private static String capitalize(String str) {
-        if (str != null && !str.isEmpty()) {
-            String var10000 = str.substring(0, 1).toUpperCase();
-            return var10000 + str.substring(1);
-        } else {
-            return str;
-        }
     }
 }
